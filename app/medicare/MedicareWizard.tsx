@@ -12,28 +12,29 @@ import { Reviews } from "@/components/Reviews";
 import { WhatToExpect } from "@/components/WhatToExpect";
 
 const TOTAL_STEPS = 3;
-const STORAGE_KEY = "triad-coverage-quote";
+// v2: schema changed (firstName/lastName, no zip, new coverage values)
+const STORAGE_KEY = "triad-coverage-quote-v2";
 const CALENDLY_URL =
   "https://calendly.com/wchappell37/retirement-consultation";
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export type CoverageQuoteAnswers = {
-  coverageType: string;
-  ageBand: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
-  zip: string;
+  coverageType: string;
+  ageBand: string;
   submittedAt?: string;
 };
 
 const emptyState: CoverageQuoteAnswers = {
-  coverageType: "",
-  ageBand: "",
-  fullName: "",
+  firstName: "",
+  lastName: "",
   email: "",
   phone: "",
-  zip: "",
+  coverageType: "",
+  ageBand: "",
 };
 
 type Option = { value: string; label: string };
@@ -90,11 +91,11 @@ function OptionGrid({
 
 type WizardChoiceKey = "coverageType" | "ageBand";
 
-function fieldForStep(step: number): WizardChoiceKey | null {
+function choiceFieldForStep(step: number): WizardChoiceKey | null {
   switch (step) {
-    case 1:
-      return "coverageType";
     case 2:
+      return "coverageType";
+    case 3:
       return "ageBand";
     default:
       return null;
@@ -103,7 +104,6 @@ function fieldForStep(step: number): WizardChoiceKey | null {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_DIGITS_RE = /\D+/g;
-const ZIP_RE = /^\d{5}(?:-\d{4})?$/;
 
 export function MedicareWizard() {
   const searchParams = useSearchParams();
@@ -146,14 +146,18 @@ export function MedicareWizard() {
 
   const validateStep = useCallback(
     (s: number): boolean => {
-      if (s === TOTAL_STEPS) {
-        const nameOk = answers.fullName.trim().length > 1;
+      if (s === 1) {
+        const firstOk = answers.firstName.trim().length > 0;
+        const lastOk = answers.lastName.trim().length > 0;
         const emailOk = EMAIL_RE.test(answers.email.trim());
         const phoneDigits = answers.phone.replace(PHONE_DIGITS_RE, "");
         const phoneOk = phoneDigits.length >= 10 && phoneDigits.length <= 11;
-        const zipOk = ZIP_RE.test(answers.zip.trim());
-        if (!nameOk) {
-          setStepError("Please add your full name so Will knows who to call.");
+        if (!firstOk) {
+          setStepError("Please add your first name so Will knows who to call.");
+          return false;
+        }
+        if (!lastOk) {
+          setStepError("Please add your last name.");
           return false;
         }
         if (!emailOk) {
@@ -164,16 +168,10 @@ export function MedicareWizard() {
           setStepError("Please enter a 10-digit phone number.");
           return false;
         }
-        if (!zipOk) {
-          setStepError(
-            "Please enter your 5-digit ZIP so we can match North Carolina carriers.",
-          );
-          return false;
-        }
         setStepError(null);
         return true;
       }
-      const key = fieldForStep(s);
+      const key = choiceFieldForStep(s);
       if (!key) return true;
       const v = answers[key];
       if (typeof v !== "string" || v.length === 0) {
@@ -202,10 +200,10 @@ export function MedicareWizard() {
     if (submitting) return;
     setSubmitting(true);
     const result = await submitLead({
-      fullName: answers.fullName.trim(),
+      firstName: answers.firstName.trim(),
+      lastName: answers.lastName.trim(),
       email: answers.email.trim(),
       phone: answers.phone.trim(),
-      zip: answers.zip.trim(),
       coverageType: answers.coverageType,
       ageBand: answers.ageBand,
     });
@@ -231,10 +229,9 @@ export function MedicareWizard() {
 
   const coverageOptions = useMemo<Option[]>(
     () => [
-      { value: "Life — family protection", label: "Life insurance for my family" },
-      { value: "Health — under 65", label: "Health / medical (under 65)" },
-      { value: "Medicare 65+", label: "Medicare supplement (65 or older)" },
-      { value: "Not sure", label: "Not sure — help me choose" },
+      { value: "medicare-health", label: "Medicare & Health Coverage" },
+      { value: "life", label: "Life Insurance" },
+      { value: "retirement", label: "Financial Planning & Retirement" },
     ],
     [],
   );
@@ -272,7 +269,7 @@ export function MedicareWizard() {
             You&apos;re on Will&apos;s list
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-[var(--color-ink)]">
-            Thanks, {answers.fullName.trim().split(/\s+/)[0]}. Will Chappell,
+            Thanks, {answers.firstName.trim() || "friend"}. Will Chappell,
             an independent financial advisor based in Greensboro, NC, will
             reach out within one business day with options that fit your
             situation — no obligation and no mailing-list spam.
@@ -372,74 +369,47 @@ export function MedicareWizard() {
                     id="s1-title"
                     className="font-display text-2xl font-normal text-navy sm:text-3xl"
                   >
-                    What kind of coverage are you looking for?
+                    Start with how Will should reach you
                   </h2>
                   <p className="mt-2 text-lg opacity-90">
-                    Pick the closest fit — Will handles all of these every week.
-                  </p>
-                  <div className="mt-6">
-                    <OptionGrid
-                      name="coverageType"
-                      options={coverageOptions}
-                      value={answers.coverageType}
-                      onChange={(v) => pick("coverageType", v)}
-                      labelledBy="s1-title"
-                    />
-                  </div>
-                </>
-              )}
-
-              {step === 2 && (
-                <>
-                  <h2
-                    id="s2-title"
-                    className="font-display text-2xl font-normal text-navy sm:text-3xl"
-                  >
-                    Which age group fits you?
-                  </h2>
-                  <p className="mt-2 text-lg opacity-90">
-                    Your age band drives which carriers and rates apply.
-                  </p>
-                  <div className="mt-6">
-                    <OptionGrid
-                      name="ageBand"
-                      options={ageOptions}
-                      value={answers.ageBand}
-                      onChange={(v) => pick("ageBand", v)}
-                      labelledBy="s2-title"
-                    />
-                  </div>
-                </>
-              )}
-
-              {step === 3 && (
-                <>
-                  <h2
-                    id="s3-title"
-                    className="font-display text-2xl font-normal text-navy sm:text-3xl"
-                  >
-                    Where should Will send your quote?
-                  </h2>
-                  <p className="mt-2 text-lg opacity-90">
-                    Last step. He&apos;ll reach out within one business day —
-                    your info is never sold.
+                    Quick contact info — Will personally follows up within one
+                    business day. We never sell your data.
                   </p>
                   <div className="mt-6 space-y-4 text-left">
                     <div>
                       <label
-                        htmlFor="fullName"
+                        htmlFor="firstName"
                         className="mb-2 block text-lg font-bold text-navy"
                       >
-                        Full name
+                        First name
                       </label>
                       <input
-                        id="fullName"
-                        name="fullName"
-                        autoComplete="name"
-                        value={answers.fullName}
+                        id="firstName"
+                        name="firstName"
+                        autoComplete="given-name"
+                        value={answers.firstName}
                         onChange={(e) => {
                           setStepError(null);
-                          patch({ fullName: e.target.value });
+                          patch({ firstName: e.target.value });
+                        }}
+                        className="w-full rounded-lg border-2 border-navy/15 bg-white px-4 py-3 text-lg text-navy outline-none transition-colors focus:border-gold min-h-[60px]"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="lastName"
+                        className="mb-2 block text-lg font-bold text-navy"
+                      >
+                        Last name
+                      </label>
+                      <input
+                        id="lastName"
+                        name="lastName"
+                        autoComplete="family-name"
+                        value={answers.lastName}
+                        onChange={(e) => {
+                          setStepError(null);
+                          patch({ lastName: e.target.value });
                         }}
                         className="w-full rounded-lg border-2 border-navy/15 bg-white px-4 py-3 text-lg text-navy outline-none transition-colors focus:border-gold min-h-[60px]"
                       />
@@ -487,34 +457,58 @@ export function MedicareWizard() {
                         className="w-full rounded-lg border-2 border-navy/15 bg-white px-4 py-3 text-lg text-navy outline-none transition-colors focus:border-gold min-h-[60px]"
                       />
                     </div>
-                    <div>
-                      <label
-                        htmlFor="zip"
-                        className="mb-2 block text-lg font-bold text-navy"
-                      >
-                        ZIP code
-                      </label>
-                      <input
-                        id="zip"
-                        name="zip"
-                        type="text"
-                        autoComplete="postal-code"
-                        inputMode="numeric"
-                        placeholder="27401"
-                        value={answers.zip}
-                        onChange={(e) => {
-                          setStepError(null);
-                          patch({ zip: e.target.value });
-                        }}
-                        className="w-full rounded-lg border-2 border-navy/15 bg-white px-4 py-3 text-lg text-navy outline-none transition-colors focus:border-gold min-h-[60px]"
-                      />
-                    </div>
                   </div>
                   <p className="mt-4 text-left text-base italic text-navy/75">
                     By submitting, you agree Will Chappell may contact you by
-                    phone, text, or email about insurance options. Standard
-                    rates apply. We don&apos;t sell your information.
+                    phone, text, or email about your options. Standard rates
+                    apply. We don&apos;t sell your information.
                   </p>
+                </>
+              )}
+
+              {step === 2 && (
+                <>
+                  <h2
+                    id="s2-title"
+                    className="font-display text-2xl font-normal text-navy sm:text-3xl"
+                  >
+                    What kind of help are you looking for?
+                  </h2>
+                  <p className="mt-2 text-lg opacity-90">
+                    Pick the closest fit — Will handles all of these every week.
+                  </p>
+                  <div className="mt-6">
+                    <OptionGrid
+                      name="coverageType"
+                      options={coverageOptions}
+                      value={answers.coverageType}
+                      onChange={(v) => pick("coverageType", v)}
+                      labelledBy="s2-title"
+                    />
+                  </div>
+                </>
+              )}
+
+              {step === 3 && (
+                <>
+                  <h2
+                    id="s3-title"
+                    className="font-display text-2xl font-normal text-navy sm:text-3xl"
+                  >
+                    Which age group fits you?
+                  </h2>
+                  <p className="mt-2 text-lg opacity-90">
+                    Your age band drives which carriers and rates apply.
+                  </p>
+                  <div className="mt-6">
+                    <OptionGrid
+                      name="ageBand"
+                      options={ageOptions}
+                      value={answers.ageBand}
+                      onChange={(v) => pick("ageBand", v)}
+                      labelledBy="s3-title"
+                    />
+                  </div>
                 </>
               )}
             </div>
