@@ -2,6 +2,7 @@ export type LeadPayload = {
   source: "triadflow-web";
   submittedAt: string;
   fullName: string;
+  firstName: string;
   email: string;
   phone: string;
   zip: string;
@@ -20,7 +21,7 @@ export type LeadPayload = {
 
 export type LeadInput = Omit<
   LeadPayload,
-  "source" | "submittedAt" | "pageUrl" | "referrer" | "utm"
+  "source" | "submittedAt" | "firstName" | "pageUrl" | "referrer" | "utm"
 >;
 
 const UTM_KEYS = ["source", "medium", "campaign", "term", "content"] as const;
@@ -34,12 +35,18 @@ function readUtm(params: URLSearchParams): LeadPayload["utm"] {
   return result;
 }
 
+function deriveFirstName(fullName: string): string {
+  return fullName.trim().split(/\s+/)[0] ?? "";
+}
+
 export function buildLeadPayload(input: LeadInput): LeadPayload {
+  const firstName = deriveFirstName(input.fullName);
   if (typeof window === "undefined") {
     return {
       source: "triadflow-web",
       submittedAt: new Date().toISOString(),
       ...input,
+      firstName,
       pageUrl: "",
       referrer: "",
       utm: {
@@ -56,6 +63,7 @@ export function buildLeadPayload(input: LeadInput): LeadPayload {
     source: "triadflow-web",
     submittedAt: new Date().toISOString(),
     ...input,
+    firstName,
     pageUrl: window.location.href,
     referrer: document.referrer || "",
     utm: readUtm(params),
@@ -68,7 +76,7 @@ export type SubmitResult =
   | { ok: false; error: string };
 
 const DEFAULT_WEBHOOK_URL =
-  "https://hooks.zapier.com/hooks/catch/27406693/uv9ep9b/";
+  "https://hook.us2.make.com/fvxqryg1s9oldjuaf8s4xkoxurmy0zhh";
 
 export async function submitLead(input: LeadInput): Promise<SubmitResult> {
   const payload = buildLeadPayload(input);

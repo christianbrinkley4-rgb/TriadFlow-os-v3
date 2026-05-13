@@ -16,7 +16,7 @@ export function WhatToExpect() {
       title: "A no-pressure 30-minute conversation",
       body:
         "If you want a closer look, Will sits down with you (in person at " +
-        "his Piedmont Triad office, or by phone) and walks through your " +
+        "his Greensboro office, or by phone) and walks through your " +
         "options in plain English. No paperwork on the first call.",
     },
     {
