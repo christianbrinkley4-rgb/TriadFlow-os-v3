@@ -74,7 +74,7 @@ function OptionGrid({
             />
             <label
               htmlFor={id}
-              className={`flex min-h-[60px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 px-4 py-3 text-center leading-snug transition-all duration-300 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold ${
+              className={`flex h-full min-h-[80px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 px-4 py-3 text-center leading-snug transition-all duration-300 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold ${
                 selected
                   ? "border-gold bg-gold-soft/60 text-navy shadow-[inset_0_0_0_1px_#c5a059]"
                   : "border-navy/15 bg-white/90 text-navy hover:border-gold/40"
