@@ -8,6 +8,7 @@ const headline = Montserrat({
 });
 
 const QUOTE_URL = "/medicare";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 /**
  * Vertical-split marketing graphic: advisor photo (left) + copy panel (right).
@@ -22,7 +23,7 @@ export default function MedicareAd() {
       <div className="flex min-h-[560px] flex-col pb-14 sm:min-h-[600px] sm:flex-row sm:pb-16">
         <div className="relative h-64 w-full sm:h-auto sm:min-h-[600px] sm:w-1/2 sm:flex-none">
           <Image
-            src="/will.jpg"
+            src={`${BASE_PATH}/will.jpg`}
             alt="Will Chappell — independent financial advisor based in Greensboro, NC"
             fill
             className="object-cover object-[center_top]"

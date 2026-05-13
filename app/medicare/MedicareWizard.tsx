@@ -15,6 +15,7 @@ const TOTAL_STEPS = 3;
 const STORAGE_KEY = "triad-coverage-quote";
 const CALENDLY_URL =
   "https://calendly.com/wchappell37/retirement-consultation";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export type CoverageQuoteAnswers = {
   coverageType: string;
@@ -307,7 +308,7 @@ export function MedicareWizard() {
           <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-gold/90 bg-navy text-center text-xl font-bold text-paper shadow-md shadow-navy/20 ring-1 ring-navy/5 sm:h-24 sm:w-24">
             {!photoFailed ? (
               <Image
-                src="/will.jpg"
+                src={`${BASE_PATH}/will.jpg`}
                 alt="Will Chappell — independent financial advisor in Greensboro, NC"
                 fill
                 sizes="(min-width: 640px) 96px, 80px"
