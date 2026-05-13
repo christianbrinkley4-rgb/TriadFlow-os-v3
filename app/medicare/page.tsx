@@ -6,7 +6,7 @@ import { MedicareWizard } from "./MedicareWizard";
 export const metadata: Metadata = {
   title: "Free Triad Coverage Quote — life, health, and Medicare",
   description:
-    "Three quick questions to get a free quote from Will Chappell, a licensed local life and health agent in the Piedmont Triad.",
+    "Three quick questions to get clear answers from Will Chappell, a local financial advisor in the Piedmont Triad. Trusted by 200+ households.",
 };
 
 function MedicareFallback() {

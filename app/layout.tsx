@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Free Triad Coverage Quote — Will Chappell",
   description:
-    "Three quick questions to get a free life or health insurance quote from Will Chappell, a licensed local agent serving the Piedmont Triad.",
+    "Three quick questions to get clear answers from Will Chappell, a local financial advisor serving the Piedmont Triad. Trusted by 200+ households.",
 };
 
 const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || "183351282";

@@ -23,7 +23,7 @@ export default function MedicareAd() {
         <div className="relative h-64 w-full sm:h-auto sm:min-h-[600px] sm:w-1/2 sm:flex-none">
           <Image
             src="/will.webp"
-            alt="Will Chappell, licensed local life and health insurance agent in the Piedmont Triad"
+            alt="Will Chappell, a local financial advisor in the Piedmont Triad"
             fill
             className="object-cover object-center"
             sizes="(max-width: 640px) 100vw, 480px"
@@ -41,13 +41,16 @@ export default function MedicareAd() {
 
             <div className="text-lg leading-relaxed text-navy sm:text-[18px]">
               <p className="m-0">
-                Will Chappell, a licensed local agent serving Greensboro,
-                Winston-Salem, and High Point, compares life and health plans
-                from top-rated carriers so you don&apos;t have to.
+                Will Chappell, a local financial advisor serving Greensboro,
+                Winston-Salem, and High Point, compares your options from
+                top-rated carriers so you don&apos;t have to.
               </p>
               <p className="mt-4 m-0 text-[17px] leading-relaxed text-navy/90 sm:text-[18px]">
-                Three quick questions. A free quote in your inbox. No pressure,
-                no spam — just clear options from a neighbor who lives here too.
+                Three quick questions. Clear answers in your inbox. No pressure,
+                no spam — just a neighbor who lives here too.
+              </p>
+              <p className="mt-3 m-0 text-[15px] font-semibold leading-tight text-navy/70 sm:text-base">
+                Trusted by 200+ Greensboro &amp; Winston-Salem households.
               </p>
             </div>
 
@@ -65,8 +68,8 @@ export default function MedicareAd() {
 
       <p className="pointer-events-none absolute bottom-0 left-0 right-0 hyphens-none bg-paper/90 px-4 py-2 text-center text-[11px] leading-tight text-navy/40 [word-break:normal] sm:text-xs">
         For educational purposes only; not individualized tax, legal, or
-        investment advice. Will Chappell is a licensed insurance agent. Coverage
-        and rates subject to underwriting and carrier approval.
+        investment advice. Coverage and rates subject to underwriting and
+        carrier approval.
       </p>
     </div>
   );

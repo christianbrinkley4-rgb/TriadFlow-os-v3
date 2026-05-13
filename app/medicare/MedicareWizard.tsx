@@ -8,6 +8,8 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useWizardStep } from "@/hooks/useWizardStep";
 import { submitLead } from "@/lib/lead";
 import { trackFunnelStep, trackLead } from "@/lib/analytics";
+import { Reviews } from "@/components/Reviews";
+import { WhatToExpect } from "@/components/WhatToExpect";
 
 const TOTAL_STEPS = 3;
 const STORAGE_KEY = "triad-coverage-quote";
@@ -270,9 +272,9 @@ export function MedicareWizard() {
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-[var(--color-ink)]">
             Thanks, {answers.fullName.trim().split(/\s+/)[0]}. Will Chappell, a
-            local licensed agent in the Piedmont Triad, will reach out within
-            one business day with quotes that fit your situation — no obligation
-            and no mailing-list spam.
+            local financial advisor in the Piedmont Triad, will reach out
+            within one business day with options that fit your situation — no
+            obligation and no mailing-list spam.
           </p>
           <p className="mt-3 text-base text-navy/70">
             Want to lock in a time now? Pick a 15-minute slot below.
@@ -293,6 +295,7 @@ export function MedicareWizard() {
             Start over
           </button>
         </div>
+        <Reviews />
       </div>
     );
   }
@@ -305,7 +308,7 @@ export function MedicareWizard() {
             {!photoFailed ? (
               <Image
                 src="/will.webp"
-                alt="Will Chappell — licensed insurance agent, Piedmont Triad"
+                alt="Will Chappell — local financial advisor, Piedmont Triad"
                 fill
                 sizes="80px"
                 className="object-cover"
@@ -318,11 +321,14 @@ export function MedicareWizard() {
           </div>
           <div>
             <p className="text-lg font-bold leading-snug text-navy">
-              Will Chappell — licensed life &amp; health agent, Piedmont Triad
+              Will Chappell — local financial advisor, Piedmont Triad
             </p>
             <p className="mt-1 text-lg text-navy/80">
-              Three quick questions. One screen at a time. No spam — just quotes
-              tailored to you.
+              Three quick questions. One screen at a time. No spam — just clear
+              answers tailored to you.
+            </p>
+            <p className="mt-2 text-base font-semibold text-navy/70">
+              Trusted by 200+ Greensboro &amp; Winston-Salem households.
             </p>
           </div>
         </header>
@@ -551,6 +557,13 @@ export function MedicareWizard() {
             </div>
           </form>
         </div>
+
+        {step === 1 ? (
+          <>
+            <WhatToExpect />
+            <Reviews />
+          </>
+        ) : null}
       </div>
     </div>
   );

@@ -517,6 +517,128 @@
       }
     }
 
+    /* Sections after the form: 60+-tuned (large type, generous spacing) */
+    .trust-section {
+      max-width: 640px;
+      margin: 28px auto 0;
+      padding: 28px 22px;
+      background: #ffffff;
+      border: 1px solid rgba(15, 34, 65, 0.1);
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(15, 34, 65, 0.05);
+    }
+
+    .trust-section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f2241;
+      margin: 0 0 6px;
+      line-height: 1.25;
+    }
+
+    .trust-section .trust-section-lede {
+      font-size: 17px;
+      color: rgba(15, 34, 65, 0.7);
+      margin: 0 0 18px;
+      line-height: 1.5;
+    }
+
+    .expect-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .expect-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px;
+      background: #f5f0e8;
+      border-radius: 10px;
+      border: 1px solid rgba(15, 34, 65, 0.08);
+    }
+
+    .expect-step-num {
+      flex: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: #c5a059;
+      color: #0f2241;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .expect-step-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f2241;
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .expect-step-body {
+      font-size: 17px;
+      color: #1b2a44;
+      margin: 4px 0 0;
+      line-height: 1.55;
+    }
+
+    .reviews-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .review-card {
+      padding: 18px 20px;
+      background: #f5f0e8;
+      border: 1px solid rgba(15, 34, 65, 0.08);
+      border-radius: 10px;
+    }
+
+    .review-quote {
+      font-size: 18px;
+      color: #1b2a44;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .review-attribution {
+      font-size: 16px;
+      color: rgba(15, 34, 65, 0.75);
+      margin: 12px 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      align-items: baseline;
+    }
+
+    .review-name {
+      font-weight: 700;
+      color: #0f2241;
+    }
+
+    .review-verified {
+      margin-left: auto;
+      background: #ecfdf5;
+      color: #065f46;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
     /* Ensure hero text stays readable on smallest phones */
     @media (max-width: 380px) {
       h1 {
@@ -547,11 +669,11 @@
 
       <div class="hero-intro">
         <div class="hero-identity-row">
-          <img class="hero-identity-img" src="will.webp" alt="Will Campbell — Fee-Only Fiduciary Advisor" width="80" height="80" loading="eager" />
-          <p class="hero-advisor-tagline">Will Campbell &mdash; Fee-Only Fiduciary Advisor, Piedmont Triad.</p>
+          <img class="hero-identity-img" src="will.webp" alt="Will Chappell — local financial advisor, Piedmont Triad" width="80" height="80" loading="eager" />
+          <p class="hero-advisor-tagline">Will Chappell &mdash; local financial advisor, Piedmont Triad.</p>
         </div>
         <h1>Are You Protected Against the 3 Biggest Risks Facing Triad Retirees Right Now?</h1>
-        <p class="trust-strip">Trusted by 200+ Greensboro &amp; Winston-Salem households &bull; Licensed NC Fiduciary</p>
+        <p class="trust-strip">Trusted by 200+ Greensboro &amp; Winston-Salem households</p>
         <p class="hero-lead">Answer 5 quick questions. Get your custom 2026 Risk Snapshot &mdash; free, no strings, delivered by email in minutes.</p>
       </div>
 
@@ -675,11 +797,93 @@
 
         <p class="cta-trust">&#128274; Secure &amp; Private</p>
         <button type="submit" id="submitLeadBtn">Send My Risk Snapshot</button>
-        <p class="contact-disclaimer"><em>Your information is used only to deliver your custom PDF and coordinate a local, fee-only advisor review. We never sell your data.</em></p>
+        <p class="contact-disclaimer"><em>Your information is used only to deliver your custom PDF and coordinate a review with Will, your local financial advisor. We never sell your data.</em></p>
         <p id="formError" class="inline-form-error" role="alert"></p>
       </div>
     </form>
   </div>
+
+  <!-- "What happens next" — process walkthrough, FTC-safe (factual description) -->
+  <section class="trust-section" aria-labelledby="what-to-expect-title">
+    <h2 id="what-to-expect-title">What happens after you finish these questions</h2>
+    <p class="trust-section-lede">No pressure. No spam. Here is exactly what comes next.</p>
+    <ol class="expect-list">
+      <li class="expect-step">
+        <span class="expect-step-num" aria-hidden="true">1</span>
+        <div>
+          <p class="expect-step-title">You hear from Will within one business day</p>
+          <p class="expect-step-body">Usually a short phone call &mdash; under 10 minutes &mdash; so Will can understand what brought you in and answer any first questions.</p>
+        </div>
+      </li>
+      <li class="expect-step">
+        <span class="expect-step-num" aria-hidden="true">2</span>
+        <div>
+          <p class="expect-step-title">A no-pressure 30-minute conversation</p>
+          <p class="expect-step-body">If you want a closer look, Will sits down with you (in person at his Piedmont Triad office, or by phone) and walks through your options in plain English. No paperwork on the first call.</p>
+        </div>
+      </li>
+      <li class="expect-step">
+        <span class="expect-step-num" aria-hidden="true">3</span>
+        <div>
+          <p class="expect-step-title">Options from multiple top-rated carriers</p>
+          <p class="expect-step-body">Will compares plans side by side and sends you a written summary. You decide what fits your family. No obligation to buy anything.</p>
+        </div>
+      </li>
+      <li class="expect-step">
+        <span class="expect-step-num" aria-hidden="true">4</span>
+        <div>
+          <p class="expect-step-title">He stays your point of contact</p>
+          <p class="expect-step-body">If something changes &mdash; a new diagnosis, a move, a question about a bill &mdash; you call Will directly. Not a call center.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!--
+    REVIEWS SECTION
+    ===============
+    FTC Endorsement Guides (16 CFR Part 255) treat fabricated reviews as
+    deceptive practice — civil penalties up to ~$51,744 per violation.
+    NC DOI also bars misleading advertising under 11 NCAC 12.0314.
+
+    Will: replace the .review-card placeholders below with REAL client
+    quotes. Best sources:
+      1. Verified Google Business Profile reviews (mark with .review-verified)
+      2. Permissioned client emails/texts ("Will, mind if I use what you
+         just said in a quote on the site?")
+
+    If you have NO real quotes yet, DELETE the entire <section> below until
+    you do. Shipping without it is better than shipping fake testimonials.
+  -->
+  <section class="trust-section" aria-labelledby="reviews-title" id="reviews-section" hidden>
+    <h2 id="reviews-title">What Triad neighbors say about working with Will</h2>
+    <p class="trust-section-lede">Real words from real clients across Greensboro, Winston-Salem, and High Point.</p>
+    <ul class="reviews-list">
+      <!--
+        EXAMPLE FORMAT — DO NOT SHIP THIS. Replace with real, permissioned quotes.
+
+        <li class="review-card">
+          <p class="review-quote">&ldquo;Will sat with my husband and me at our kitchen table for two hours and walked us through every option in plain English. We finally feel like we understand what we are paying for.&rdquo;</p>
+          <p class="review-attribution">
+            <span class="review-name">Sarah K.</span>
+            <span>Winston-Salem</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>Medicare supplement</span>
+            <span class="review-verified">Verified Google review</span>
+          </p>
+        </li>
+      -->
+    </ul>
+  </section>
+  <script>
+    // Auto-show the reviews section only if at least one real <li.review-card>
+    // has been added. Prevents an empty/dev-comment-only section from rendering.
+    (function gateReviews() {
+      var section = document.getElementById("reviews-section");
+      if (!section) return;
+      if (section.querySelector("li.review-card")) section.hidden = false;
+    })();
+  </script>
 
   <script>
     (function initFunnel() {
@@ -857,7 +1061,7 @@
         successDiv.innerHTML =
           '<div class="success-check-wrap"><div class="success-check-circle" role="img" aria-label="Success">&#10003;</div></div>' +
           '<h2 class="success-title">Your Risk Snapshot is on its way!</h2>' +
-          '<img src="will.webp" alt="Will Campbell" class="success-will-img" width="100" height="100" loading="lazy" />' +
+          '<img src="will.webp" alt="Will Chappell" class="success-will-img" width="100" height="100" loading="lazy" />' +
           '<p class="success-body">Will is reviewing your answers now. Your free 2026 Financial Risk PDF will hit your inbox within the next few minutes. Check your spam folder too.</p>' +
           '<p class="success-preamble">Want Will to walk you through your results personally?</p>' +
           '<a href="https://calendly.com/wchappell37/retirement-consultation" class="success-cal-btn" target="_blank" rel="noopener noreferrer">Book a Free 15-Minute Review Call</a>' +
