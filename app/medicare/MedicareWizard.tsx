@@ -37,7 +37,7 @@ const emptyState: CoverageQuoteAnswers = {
   ageBand: "",
 };
 
-type Option = { value: string; label: string };
+type Option = { value: string; label: string; sublabel?: string };
 
 function OptionGrid({
   name,
@@ -74,13 +74,18 @@ function OptionGrid({
             />
             <label
               htmlFor={id}
-              className={`flex min-h-[60px] cursor-pointer items-center justify-center rounded-lg border-2 px-4 py-3 text-center text-lg font-semibold leading-snug transition-all duration-300 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold ${
+              className={`flex min-h-[60px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 px-4 py-3 text-center leading-snug transition-all duration-300 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold ${
                 selected
                   ? "border-gold bg-gold-soft/60 text-navy shadow-[inset_0_0_0_1px_#c5a059]"
                   : "border-navy/15 bg-white/90 text-navy hover:border-gold/40"
               } `}
             >
-              {opt.label}
+              <span className="text-lg font-semibold">{opt.label}</span>
+              {opt.sublabel ? (
+                <span className="mt-1 text-sm font-normal text-navy/70">
+                  {opt.sublabel}
+                </span>
+              ) : null}
             </label>
           </div>
         );
@@ -232,6 +237,11 @@ export function MedicareWizard() {
       { value: "medicare-health", label: "Medicare & Health Coverage" },
       { value: "life", label: "Life Insurance" },
       { value: "retirement", label: "Financial Planning & Retirement" },
+      {
+        value: "not-sure",
+        label: "Not sure yet",
+        sublabel: "We'll help you figure it out.",
+      },
     ],
     [],
   );
