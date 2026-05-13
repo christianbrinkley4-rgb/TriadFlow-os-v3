@@ -271,10 +271,10 @@ export function MedicareWizard() {
             You&apos;re on Will&apos;s list
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-[var(--color-ink)]">
-            Thanks, {answers.fullName.trim().split(/\s+/)[0]}. Will Chappell, a
-            local financial advisor in the Piedmont Triad, will reach out
-            within one business day with options that fit your situation — no
-            obligation and no mailing-list spam.
+            Thanks, {answers.fullName.trim().split(/\s+/)[0]}. Will Chappell,
+            an independent financial advisor based in Greensboro, NC, will
+            reach out within one business day with options that fit your
+            situation — no obligation and no mailing-list spam.
           </p>
           <p className="mt-3 text-base text-navy/70">
             Want to lock in a time now? Pick a 15-minute slot below.
@@ -304,14 +304,14 @@ export function MedicareWizard() {
     <div className="min-h-screen bg-paper pb-20 pt-8 text-[var(--color-ink)]">
       <div className="mx-auto max-w-xl px-4">
         <header className="mb-8 flex items-start gap-4">
-          <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-[3px] border-gold bg-navy text-center text-xl font-bold text-paper">
+          <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-gold/90 bg-navy text-center text-xl font-bold text-paper shadow-md shadow-navy/20 ring-1 ring-navy/5 sm:h-24 sm:w-24">
             {!photoFailed ? (
               <Image
-                src="/will.webp"
-                alt="Will Chappell — local financial advisor, Piedmont Triad"
+                src="/will.jpg"
+                alt="Will Chappell — independent financial advisor in Greensboro, NC"
                 fill
-                sizes="80px"
-                className="object-cover"
+                sizes="(min-width: 640px) 96px, 80px"
+                className="object-cover object-[center_25%]"
                 priority
                 onError={() => setPhotoFailed(true)}
               />
@@ -321,7 +321,7 @@ export function MedicareWizard() {
           </div>
           <div>
             <p className="text-lg font-bold leading-snug text-navy">
-              Will Chappell — local financial advisor, Piedmont Triad
+              Will Chappell — independent financial advisor, Greensboro NC
             </p>
             <p className="mt-1 text-lg text-navy/80">
               Three quick questions. One screen at a time. No spam — just clear

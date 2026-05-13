@@ -22,10 +22,10 @@ export default function MedicareAd() {
       <div className="flex min-h-[560px] flex-col pb-14 sm:min-h-[600px] sm:flex-row sm:pb-16">
         <div className="relative h-64 w-full sm:h-auto sm:min-h-[600px] sm:w-1/2 sm:flex-none">
           <Image
-            src="/will.webp"
-            alt="Will Chappell, a local financial advisor in the Piedmont Triad"
+            src="/will.jpg"
+            alt="Will Chappell — independent financial advisor based in Greensboro, NC"
             fill
-            className="object-cover object-center"
+            className="object-cover object-[center_top]"
             sizes="(max-width: 640px) 100vw, 480px"
             priority
           />
@@ -41,9 +41,9 @@ export default function MedicareAd() {
 
             <div className="text-lg leading-relaxed text-navy sm:text-[18px]">
               <p className="m-0">
-                Will Chappell, a local financial advisor serving Greensboro,
-                Winston-Salem, and High Point, compares your options from
-                top-rated carriers so you don&apos;t have to.
+                Will Chappell is an independent financial advisor based in
+                Greensboro, NC. He compares your options from top-rated
+                carriers so you don&apos;t have to.
               </p>
               <p className="mt-4 m-0 text-[17px] leading-relaxed text-navy/90 sm:text-[18px]">
                 Three quick questions. Clear answers in your inbox. No pressure,
